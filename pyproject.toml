@@ -1,0 +1,56 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "tactical-gomoku-ai"
+version = "1.0.0"
+description = "A proof-aware AlphaZero-style Gomoku agent with batched PUCT search"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "numpy==2.4.6",
+    "pygame==2.6.1",
+    "torch==2.8.0",
+]
+
+[project.scripts]
+gomoku-ai = "gomoku_ai.play:main"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4,<10",
+    "ruff>=0.12,<1",
+]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+gomoku_ai = ["models/*.pt"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+extend-exclude = ["release"]
+line-length = 88
+target-version = "py311"
+
+[tool.uv]
+package = true
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cu128", marker = "sys_platform == 'linux' or sys_platform == 'win32'" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
