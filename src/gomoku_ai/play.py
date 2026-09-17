@@ -165,8 +165,8 @@ def run_game(
     screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
     clock = pygame.time.Clock()
     fonts = (
-        pygame.font.SysFont("arial", 25),
-        pygame.font.SysFont("arial", 17),
+        pygame.font.Font(None, 25),
+        pygame.font.Font(None, 17),
     )
 
     position = GomokuPosition.initial()
